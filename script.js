@@ -22,5 +22,17 @@ function isValidDate(day, month, year) {
             return false;
         }
     
-        return true;
+    // Additional validation for days in each month
+    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    // Leap year check
+    if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+        daysInMonth[1] = 29;
     }
+
+    if (day > daysInMonth[month - 1]) {
+        return false;
+    }
+
+    return true;
+}
