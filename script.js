@@ -21,9 +21,6 @@ function isValidDate(day, month, year) {
         if (year > currentYear || year < 1900) {
             return false;
         }
-    
-    // Additional validation for days in each month
-    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     // Leap year check
     if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
@@ -35,4 +32,22 @@ function isValidDate(day, month, year) {
     }
 
     return true;
+}
+
+function calculateDayOfWeek(day, month, year) {
+   
+    const CC = Math.floor(year / 100);
+    const YY = year % 100;
+    const MM = month;
+    const DD = day;
+
+    // Apply the formula: d = ((4CC - 2×CC-1) + (45×YY) + (1026×(MM+1)) + DD) mod 7
+    const d = (
+        (4 * CC - Math.floor(2 * CC - 1)) +
+        (Math.floor(45 * YY / 12)) +
+        (Math.floor((1026 * (MM + 1)) / 12)) +
+        DD
+    ) % 7;
+
+    return d;
 }
