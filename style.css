@@ -1,5 +1,5 @@
-h1 {    
-    color: #2c3e50;
+h1, h2 {    
+    color: #0f1b27;
     text-align: center;
     font-family: 'Arial', sans-serif;
     margin-top: 20px;
@@ -18,7 +18,8 @@ p {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #ecf0f1;
+    opacity: 0.85;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -48,4 +49,5 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-image: url('https://i.pinimg.com/736x/40/08/e0/4008e0e6b9d1d4bf8049cdfc59e6f24a.jpg');
 }
