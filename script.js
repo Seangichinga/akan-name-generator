@@ -106,3 +106,5 @@ function displayResult(akanName) {
     akanNameDisplay.textContent = akanName;
     resultSection.style.display = "block";
 }
+
+document.getElementById("akanForm").addEventListener("submit", handleFormSubmit);
