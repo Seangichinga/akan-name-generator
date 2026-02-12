@@ -97,6 +97,12 @@ function handleFormSubmit(event) {
         // Get Akan name
         const akanName = getAkanName(dayOfWeek, genderInput);
     
-        displayResult(akanName, daysOfWeek[dayOfWeek]);
-        
+        displayResult(akanName);
     }
+
+function displayResult(akanName) {
+    const resultSection = document.getElementById("resultSection");
+    const akanNameDisplay = document.getElementById("akanName");
+    akanNameDisplay.textContent = akanName;
+    resultSection.style.display = "block";
+}
