@@ -5,6 +5,12 @@ const akanNames = {
 
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+}
+
 function isValidDate(day, month, year) {
     // Check if day is between 1 and 31
     if (day < 1 || day > 31) {
@@ -16,13 +22,18 @@ function isValidDate(day, month, year) {
         return false;
     }
 
-        // Check if year is valid (not in the future and reasonable)
-        const currentYear = new Date().getFullYear();
-        if (year > currentYear || year < 1900) {
+    // Check if year is valid (not in the future and reasonable)
+    const currentYear = new Date().getFullYear();
+    if (year > currentYear || year < 1900) {
             return false;
-        }
+     }
 
-    if (day > daysInMonth[month - 1]) {
+    let maxDaysInMonth = daysInMonth[month - 1];
+    if (month === 2 && isLeapYear(year)) {
+        maxDaysInMonth = 29;
+    }
+
+    if (day > maxDaysInMonth) {
         return false;
     }
 
@@ -30,25 +41,35 @@ function isValidDate(day, month, year) {
 }
 
 function calculateDayOfWeek(day, month, year) {
-   
-    const CC = Math.floor(year / 100);
-    const YY = year % 100;
-    const MM = month;
-    const DD = day;
+    let m = month;
+    let y = year;
+    
+    if (m < 3) {
+        m += 12;
+        y -= 1;
+    }
 
-    // Apply the formula: d = ((4CC - 2×CC-1) + (45×YY) + (1026×(MM+1)) + DD) mod 7
-    const d = (
-        (4 * CC - Math.floor(2 * CC - 1)) +
-        (Math.floor(45 * YY / 12)) +
-        (Math.floor((1026 * (MM + 1)) / 12)) +
-        DD
-    ) % 7;
+    const q = day;
+    const K = y % 100;
+    const J = Math.floor(y / 100);
 
-    return d;
+    const h = (q + Math.floor((13 * (m + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) - 2 * J) % 7;
+    const dayOfWeek = (h + 6) % 7;
+    
+    return dayOfWeek;
 }
 
 function getAkanName(dayOfWeek, gender) {
     return akanNames[gender][dayOfWeek];
+}
+function displayResult(akanName, dayOfWeek) {
+    const resultSection = document.getElementById("resultSection");
+    const akanNameDisplay = document.getElementById("akanName");
+    const dayOfWeekDisplay = document.getElementById("dayOfWeekDisplay");
+    akanNameDisplay.textContent = akanName;
+    dayOfWeekDisplay.textContent = `Born on a ${daysOfWeek[dayOfWeek]}`;
+    
+    resultSection.classList.remove("hidden");
 }
 
 function handleFormSubmit(event) {
@@ -97,14 +118,11 @@ function handleFormSubmit(event) {
         // Get Akan name
         const akanName = getAkanName(dayOfWeek, genderInput);
     
-        displayResult(akanName);
+        displayResult(akanName, dayOfWeek);
     }
 
-function displayResult(akanName) {
-    const resultSection = document.getElementById("resultSection");
-    const akanNameDisplay = document.getElementById("akanName");
-    akanNameDisplay.textContent = akanName;
-    resultSection.style.display = "block";
-}
 
-document.getElementById("akanForm").addEventListener("submit", handleFormSubmit);
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("birthdateForm");
+    form.addEventListener("submit", handleFormSubmit);
+});

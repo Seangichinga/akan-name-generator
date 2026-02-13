@@ -19,8 +19,9 @@
             <section class="form-section">
                 <h2>Enter Your Birthdate</h2>
                 <form id="birthdateForm">
+                    <div class="date-input">
                     <div class="form-group">
-                        <label for="dateInput">Date of Birth:</label>
+                        <label for="dayInput">Date of Birth:</label>
                         <input 
                                 type="number" 
                                 id="dayInput" 
@@ -56,9 +57,10 @@
                                 required
                             >
                         </div>
+                    </div>
                     
                        <div class="form-group">
-                        <label>Gender:</label>
+                        <label for="genderSelect">Gender:</label>
                          <select 
                             id="genderSelect" 
                             name="gender" 
@@ -72,13 +74,14 @@
 
                     <div class="button-group">
                         <button type="submit" class="btn-submit">Find My Akan Name</button>
-               
+               </div>
                 </form>
             </section>  
      <section id="resultSection" class="result-section hidden">
                 <div class="result-card">
                     <h2>Your Akan Name is:</h2>
                     <p id="akanName" class="akan-name-display"></p>
+                    <p id="dayOfWeekDisplay" class="day-of-week-display"></p>
                     </div>
             </section>
                   
